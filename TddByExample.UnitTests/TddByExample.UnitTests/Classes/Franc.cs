@@ -7,7 +7,7 @@ namespace TddByExample.UnitTests.Classes
             Amount = amount;
         }
         
-        public Franc Times(int multiplier)
+        public override Money Times(int multiplier)
         {
             return new Franc(Amount * multiplier);
         }

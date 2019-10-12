@@ -10,33 +10,33 @@ namespace TddByExample.UnitTests
         [Fact]
         public void testDollarMultiplication()
         {
-            Dollar five = new Dollar(5);
-            Assert.Equal(new Dollar(10), five.Times(2));
-            Assert.Equal(new Dollar(15), five.Times(3));
+            Money five = Money.Dollar(5);
+            Assert.Equal(Money.Dollar(10), five.Times(2));
+            Assert.Equal(Money.Dollar(15), five.Times(3));
         }
 
         [Fact]
         public void testEquality()
         {
-            Assert.True(condition: new Dollar(5).Equals(new Dollar(5)));
-            Assert.False(condition: new Dollar(4).Equals(new Dollar(6)));
-            Assert.True(condition: new Franc(5).Equals(new Franc(5)));
-            Assert.False(condition: new Franc(4).Equals(new Franc(6)));
-            Assert.False(new Franc(5).Equals(new Dollar(5)));
+            Assert.True(condition: Money.Dollar(5).Equals(Money.Dollar(5)));
+            Assert.False(condition: Money.Dollar(4).Equals(Money.Dollar(6)));
+            Assert.True(condition: Money.Franc(5).Equals(Money.Franc(5)));
+            Assert.False(condition: Money.Franc(4).Equals(Money.Franc(6)));
+            Assert.False(Money.Franc(5).Equals(Money.Dollar(5)));
         }
         
         [Fact]
         public void testFrancMultiplication()
         {
-            Franc five = new Franc(5);
-            Assert.Equal(new Franc(10), five.Times(2));
-            Assert.Equal(new Franc(15), five.Times(3));
+            Franc five = Money.Franc(5);
+            Assert.Equal(Money.Franc(10), five.Times(2));
+            Assert.Equal(Money.Franc(15), five.Times(3));
         }
         
         [Fact]
         public void TwoDollarObjectsWithDifferentAmounts_AreEqual()
         {
-            Assert.False(condition: new Dollar(4).Equals(new Dollar(6)));
+            Assert.False(condition: Money.Dollar(4).Equals(Money.Dollar(6)));
         }
     }
 }
