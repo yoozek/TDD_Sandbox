@@ -47,5 +47,11 @@ namespace TddByExample.UnitTests
             Money.Dollar(1).Currency.Should().Be("USD");
             Money.Franc(1).Currency.Should().Be("CHF");
         }
+
+        [Fact]
+        public void testDifferentClassEquality()
+        {
+            new Money(10, "CHF").Should().Be(new Franc(10, "CHF"));
+        }
     }
 }
