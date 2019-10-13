@@ -3,10 +3,17 @@ namespace TddByExample.UnitTests.Classes
     public abstract class Money
     {
         protected int Amount;
-        public abstract string Currency { get; }
+        
+        public string Currency { get; protected set; }
 
         public abstract Money Times(int multiplier);
 
+        public Money(int amount, string currency)
+        {
+            Amount = amount;
+            Currency = currency;
+        }
+        
         public override bool Equals(object obj)
         {
             var money = (Money) obj;
@@ -16,13 +23,13 @@ namespace TddByExample.UnitTests.Classes
 
         public static Dollar Dollar(int amount)
         {
-            return new Dollar(amount);
+            return new Dollar(amount, "USD");
         }
 
 
         public static Franc Franc(int amount)
         {
-            return new Franc(amount);
+            return new Franc(amount, "CHF");
         }
     }
 }
