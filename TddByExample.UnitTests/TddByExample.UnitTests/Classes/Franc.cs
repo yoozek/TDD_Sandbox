@@ -6,7 +6,9 @@ namespace TddByExample.UnitTests.Classes
         {
             Amount = amount;
         }
-        
+
+        public override string Currency { get; } = "CHF";
+
         public override Money Times(int multiplier)
         {
             return new Franc(Amount * multiplier);

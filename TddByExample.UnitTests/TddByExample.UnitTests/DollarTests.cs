@@ -1,4 +1,5 @@
 using System;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestPlatform.ObjectModel.DataCollection;
 using TddByExample.UnitTests.Classes;
 using Xunit;
@@ -11,32 +12,40 @@ namespace TddByExample.UnitTests
         public void testDollarMultiplication()
         {
             Money five = Money.Dollar(5);
-            Assert.Equal(Money.Dollar(10), five.Times(2));
-            Assert.Equal(Money.Dollar(15), five.Times(3));
+            five.Times(2).Should().Be(Money.Dollar(10));
+            five.Times(3).Should().Be(Money.Dollar(15));
         }
 
         [Fact]
         public void testEquality()
         {
-            Assert.True(condition: Money.Dollar(5).Equals(Money.Dollar(5)));
-            Assert.False(condition: Money.Dollar(4).Equals(Money.Dollar(6)));
-            Assert.True(condition: Money.Franc(5).Equals(Money.Franc(5)));
-            Assert.False(condition: Money.Franc(4).Equals(Money.Franc(6)));
-            Assert.False(Money.Franc(5).Equals(Money.Dollar(5)));
+            Money.Dollar(5).Should().Be(Money.Dollar(5));
+            Money.Dollar(4).Should().NotBe(Money.Dollar(6));
+            Money.Franc(5).Should().Be(Money.Franc(5));
+            Money.Franc(5).Should().NotBe(Money.Franc(6));
+            Money.Franc(5).Should().NotBe(Money.Dollar(5));
         }
         
         [Fact]
         public void testFrancMultiplication()
         {
             Franc five = Money.Franc(5);
-            Assert.Equal(Money.Franc(10), five.Times(2));
-            Assert.Equal(Money.Franc(15), five.Times(3));
+            five.Times(2).Should().Be(Money.Franc(10));
+            five.Times(3).Should().Be(Money.Franc(15));
         }
         
         [Fact]
         public void TwoDollarObjectsWithDifferentAmounts_AreEqual()
         {
+            Money.Dollar(4).Should().NotBe(Money.Dollar(6));
             Assert.False(condition: Money.Dollar(4).Equals(Money.Dollar(6)));
+        }
+
+        [Fact]
+        public void testCurrency()
+        {
+            Money.Dollar(1).Currency.Should().Be("USD");
+            Money.Franc(1).Currency.Should().Be("CHF");
         }
     }
 }
