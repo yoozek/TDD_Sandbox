@@ -1,4 +1,3 @@
-using System.Reflection.Metadata.Ecma335;
 using FluentAssertions;
 using TddByExample.UnitTests.Classes;
 using Xunit;
@@ -41,23 +40,43 @@ namespace TddByExample.UnitTests
         public void testSimpleAddition()
         {
             var five = Money.Dollar(5);
-            Express sum = five.Plus(five);
+            IExpress sum = five.Plus(five);
             var bank = new Bank();
+            
             Money reduced = bank.Reduce(sum, "USD");
+            
             reduced.Should().Be(Money.Dollar(10));
         }
-    }
 
-    public interface Express
-    {
-        
-    }
-
-    public class Bank
-    {
-        public Money Reduce(Express source, string to)
+        [Fact]
+        public void testPlusReturnsSum()
         {
-            return Money.Dollar(10);
+            var five = Money.Dollar(5);
+            
+            IExpress result = five.Plus(five);
+            
+            Sum sum = (Sum) result;
+            sum.Augend.Should().Be(five);
+            sum.Addend.Should().Be(five);
+        }
+
+        [Fact]
+        public void testReduceSum()
+        {
+            var sum = new Sum(Money.Dollar(3), Money.Dollar(4));
+            var bank = new Bank();
+
+            Money reduced = bank.Reduce(sum, "USD");
+
+            reduced.Should().Be(Money.Dollar(7));
+        }
+
+        [Fact]
+        public void testReduceMoney()
+        {
+            var bank = new Bank();
+            var result = bank.Reduce(Money.Dollar(1), "USD");
+            result.Should().Be(Money.Dollar(1));
         }
     }
 }

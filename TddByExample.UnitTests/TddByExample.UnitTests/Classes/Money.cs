@@ -2,9 +2,9 @@ using TddByExample.UnitTests.Classes;
 
 namespace TddByExample.UnitTests.Classes
 {
-    public class Money : Express
+    public class Money : IExpress
     {
-        protected int Amount;
+        public int Amount;
         
         public string Currency { get; }
 
@@ -37,9 +37,19 @@ namespace TddByExample.UnitTests.Classes
             return new Money(amount, "CHF");
         }
 
-        public Express Plus(Money money)
+        public Sum Plus(Money money)
         {
-            return new Money(Amount + money.Amount, Currency);
+            return new Sum(this, money);
+        }
+
+        public override string ToString()
+        {
+            return $"{Amount}{Currency}";
+        }
+
+        public Money Reduce(string to)
+        {
+            return this;
         }
     }
 }
