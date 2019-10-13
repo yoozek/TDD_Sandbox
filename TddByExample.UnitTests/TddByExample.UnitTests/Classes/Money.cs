@@ -1,15 +1,12 @@
-using System;
-using TddByExample.UnitTests.Classes;
-
 namespace TddByExample.UnitTests.Classes
 {
     public class Money : IExpress
     {
-        public int Amount;
+        public readonly int Amount;
         
         public string Currency { get; }
 
-        public Money Times(int multiplier)
+        public IExpress Times(int multiplier)
         {
             return new Money(Amount * multiplier, Currency);
         }
@@ -38,9 +35,9 @@ namespace TddByExample.UnitTests.Classes
             return new Money(amount, "CHF");
         }
 
-        public Sum Plus(Money money)
+        public IExpress Plus(IExpress addend)
         {
-            return new Sum(this, money);
+            return new Sum(this, addend);
         }
 
         public override string ToString()

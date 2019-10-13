@@ -97,5 +97,32 @@ namespace TddByExample.UnitTests
         {
             new Bank().Rate("USD", "USD").Should().Be(1);
         }
+
+        [Fact]
+        public void testMixedAddition()
+        {
+            IExpress fiveDollars = Money.Dollar(5);
+            IExpress tenFrancs = Money.Franc(10);
+            var bank = new Bank();
+            bank.AddRate("CHF", "USD", 2);
+
+            var result = bank.Reduce(fiveDollars.Plus(tenFrancs), "USD");
+
+            result.Should().Be(Money.Dollar(10));
+        }
+
+        [Fact]
+        public void testSumPlusMoney()
+        {
+            IExpress fiveDollars = Money.Dollar(5);
+            IExpress tenFrancs = Money.Franc(10);
+            var bank = new Bank();
+            bank.AddRate("CHF", "USD", 2);
+            IExpress sum = new Sum(fiveDollars, tenFrancs).Plus(fiveDollars);
+
+            Money result = bank.Reduce(sum, "USD");
+
+            result.Should().Be(Money.Dollar(15));
+        }
     }
 }
