@@ -75,8 +75,27 @@ namespace TddByExample.UnitTests
         public void testReduceMoney()
         {
             var bank = new Bank();
+            
             var result = bank.Reduce(Money.Dollar(1), "USD");
+            
             result.Should().Be(Money.Dollar(1));
+        }
+
+        [Fact]
+        public void testReduceMoneyDifferentCurrency()
+        {
+            var bank = new Bank();
+            bank.AddRate("CHF", "USD", 2);
+            
+            var result = bank.Reduce(Money.Franc(2), "USD");
+            
+            result.Should().Be(Money.Dollar(1));
+        }
+
+        [Fact]
+        public void testIdentityRate()
+        {
+            new Bank().Rate("USD", "USD").Should().Be(1);
         }
     }
 }

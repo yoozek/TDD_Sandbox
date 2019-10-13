@@ -1,3 +1,4 @@
+using System;
 using TddByExample.UnitTests.Classes;
 
 namespace TddByExample.UnitTests.Classes
@@ -47,9 +48,10 @@ namespace TddByExample.UnitTests.Classes
             return $"{Amount}{Currency}";
         }
 
-        public Money Reduce(string to)
+        public Money Reduce(Bank bank, string to)
         {
-            return this;
+            var rate = bank.Rate(Currency, to);
+            return new Money(Amount / rate, to);
         }
     }
 }
