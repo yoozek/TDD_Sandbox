@@ -1,3 +1,4 @@
+using System.Reflection.Metadata.Ecma335;
 using FluentAssertions;
 using TddByExample.UnitTests.Classes;
 using Xunit;
@@ -34,6 +35,29 @@ namespace TddByExample.UnitTests
         {
             Money.Dollar(1).Currency.Should().Be("USD");
             Money.Franc(1).Currency.Should().Be("CHF");
+        }
+
+        [Fact]
+        public void testSimpleAddition()
+        {
+            var five = Money.Dollar(5);
+            Express sum = five.Plus(five);
+            var bank = new Bank();
+            Money reduced = bank.Reduce(sum, "USD");
+            reduced.Should().Be(Money.Dollar(10));
+        }
+    }
+
+    public interface Express
+    {
+        
+    }
+
+    public class Bank
+    {
+        public Money Reduce(Express source, string to)
+        {
+            return Money.Dollar(10);
         }
     }
 }

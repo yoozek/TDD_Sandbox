@@ -2,7 +2,7 @@ using TddByExample.UnitTests.Classes;
 
 namespace TddByExample.UnitTests.Classes
 {
-    public class Money
+    public class Money : Express
     {
         protected int Amount;
         
@@ -35,6 +35,11 @@ namespace TddByExample.UnitTests.Classes
         public static Money Franc(int amount)
         {
             return new Money(amount, "CHF");
+        }
+
+        public Express Plus(Money money)
+        {
+            return new Money(Amount + money.Amount, Currency);
         }
     }
 }
